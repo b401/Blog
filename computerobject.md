@@ -224,7 +224,7 @@ RemoteInteractive gives us an error that testcomputer01$ is not allowed for this
 
 ![nla](/b/images/nla.png)
 
-An through `mstsc.exe`
+And through `mstsc.exe`
 
 ![mstsc](/b/images/mstsc.png)
 
