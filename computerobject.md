@@ -216,7 +216,7 @@ Type 9 occurs if somebody executes `runas /netonly`.
 This flag tells Windows to start the application locally with the same account that ran it but use the defined account for all network connections.
 
 
-![logon 9 sucess](/images/b/logon_9_success.png)
+![logon 9 sucess](/b/images/logon_9_success.png)
 
 ### Type 10: RemoteInteractive
 
