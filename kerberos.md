@@ -142,7 +142,7 @@ the KDC service.
 - _End Time:_ The time when the ticket expires and is no longer valid, in local time.
 - _Renew Time:_ The time until the ticket can still be renewed, in local time.
 - _Session Key Type:_ Specifies the encryption type of the session key within the ticket.
-- _Cache Flags:_   Supports different extensions (S4U2self)[https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/02636893-7a1f-4357-af9a-b672e3e3de13] for example or if this ticket can be used for delegation.
+- _Cache Flags:_   Supports different extensions [S4U2self](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/02636893-7a1f-4357-af9a-b672e3e3de13) for example or if this ticket can be used for delegation.
 - _Kdc Called:_ Indicates the KDC server that was contacted for obtaining this ticket.
 
 #### TS
@@ -211,7 +211,7 @@ Example and descriptions of valid values:
 |--|--|
 |forwardable| Allows forwarding of the clients identity to (SSO) |
 |forwarded| Indicates that the ticket has been forwarded to another service.|
-|proxiable| Allows the ticket to be proxied or delegated to another serivce, giving that service the authority to act on behalf of the client. (RFC4120.2.6)[https://datatracker.ietf.org/doc/html/rfc4120/#page-19] |
+|proxiable| Allows the ticket to be proxied or delegated to another serivce, giving that service the authority to act on behalf of the client. [RFC4120.2.6](https://datatracker.ietf.org/doc/html/rfc4120/#page-19) |
 |pre_authent| Requires the client to authenticate before requesting a service ticket.|
 | initial | Set for the TGT issued during the authentication process |
 | renewable | Allows the renewable of that ticket without additional authentication |
@@ -220,7 +220,7 @@ Example and descriptions of valid values:
 |ok\_as_delegate| Allows ticket delegation. This is crucial to disable on sensitive accounts (i.e. Domain Admins) - see Delegation|
 |name_canonicalize| Indicates that the identity within the ticket should be canonicalized. (Converting a principal name to a standardized, canonical form.) |
 
-Flags are documented (here)[https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-kile/de260077-1955-447c-a120-af834afe45c2]
+Flags are documented [here](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-kile/de260077-1955-447c-a120-af834afe45c2)
 
 ### Delegation
 Delegation allows services to impersonate users to access/forward their requests on their behalf.  
