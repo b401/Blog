@@ -44,7 +44,7 @@ To avoid confusion with the different synonyms, here's a list that should clarif
 | KDC | Key Distribution Center | The KDC can be a combined entity that includes both AS and TGS functions (Domain Controllers). In some cases, they can be separated into different systems, but typically, a single KDC handles both functions. 
 | TGT | Ticket Granting Ticket | A ticket that allows access to various entities after obtaining it from the Authentication Server (AS)|
 | ADDC | Active Directory Domain Controller | Domain Controller :) |
-| SPN | Service Principal Name |A service identifier in the form of "service/hostname:port" that clients use to request services. In the case of service accounts or machines, this value needs to be set correctly.|
+| SPN | Service Principal Name |A service identifier in the form of "service/hostname:port" that clients use to request services. In the case of service accounts or machines, this value needs to be set correctly. [List with valid SPNs](https://adsecurity.org/?page_id=183)|
 | PAC | Privilege Attribute Certificate | A PAC (Privilege Attribute Certificate) contains encoded authorization information, including structures like "DOMAIN_GROUP_MEMBERSHIP," "GROUP_MEMBERSHIP," and others, which define a user's privileges and group memberships.|
 
 
@@ -77,7 +77,7 @@ And a diagram because why not:
   |  Client |                 |   KDC   |                 |Webserver|
   +=========+                 +=========+                 +=========+
       |                            |                            |
-      | Request TGT (__AS=REQ__)   |                            |
+      | Request TGT (AS=REQ)       |                            |
       |===========================>|                            |
       |                            |                            |
       |                            | Verify client and          |
@@ -145,9 +145,9 @@ the KDC service.
 - _Cache Flags:_   Supports different extensions [S4U2self](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/02636893-7a1f-4357-af9a-b672e3e3de13) for example or if this ticket can be used for delegation.
 - _Kdc Called:_ Indicates the KDC server that was contacted for obtaining this ticket.
 
-#### TS
+#### TGS Ticket / Service Ticket (ST)
 
-A TS is in essence a copy of the original TGT but contains different flags (and session key) which is valid for a service in the same realm. While cross-realm kerberos authentication is possible, the complexity would be too much for this post.
+A ST is in essence a copy of the original TGT but contains different flags (and session key) which is valid for a service in the same realm. While cross-realm kerberos authentication is possible, the complexity would be too much for this post.
 
 ```
 ...
@@ -192,7 +192,7 @@ Cached Tickets: (0)
 
 ```
 
-As you see a TGS Ticket (TS) and additionally a TGT (not visible here) has been automatically acquired.
+As you see a TGS Ticket and additionally a TGT (not visible here) has been automatically acquired.
 
 What's interesting to notice is that the ticket uses `CIFS` as protocol name and not `SMB`.  
 The reason `net user` uses cifs is that the request goes over `RPC` (139/TCP).
@@ -280,7 +280,7 @@ GetNPUsers.py heimat.erde/i4 -no-pass
 Kerberoasting is used to crack NTLM passwords of users that are used as service accounts (Accounts with a valid servicePrincipalName value).  
 Found with the command: ``Get-ADUser -Filter * | Where {$_.servicePrincipalName -ne $null}``
 
-When a TGS ticket gets requested, the session key gets hashed with a timestamp and the service accounts credentials (THe account with the SPN) and sent back to the requester. It is not important if the user has access to the service yet since the TGS ticket gets created anyway.
+When a TGS ticket gets requested, the session key gets hashed with a timestamp and the service accounts credentials (The account with the SPN) and sent back to the requester. It is not important if the user has access to the service yet since the TGS ticket gets created anyway.
 
 Since the attacker knows 1/2 variables (the timestamp) he can just dump the TGS ticket from memory and bruteforce it locally until he finds the valid password hash.
 
